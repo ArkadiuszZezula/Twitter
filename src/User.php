@@ -142,8 +142,64 @@ class User {
 
             echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=" . $row['userId'] . "'><h3>" . $row['text'] . "</h3></a>" . "dodany dnia: " . $row['creationDate'] . "<br>";
             echo "Komentarze: " . $row['NRCOMMENT'] . "<br><br>";
-            
         }
+    }
+
+    static public function emailCheck($conn, $email) {
+        if ($email == "") {
+            echo "Please type your email <br>";
+            return false;
+        }
+        $email = trim($email);
+        $email = $conn->real_escape_string($email);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "Please enter valid email address.<br>";
+            session_destroy();
+            $_POST = "";
+            return false;
+        }
+        $sgl = "SELECT email FROM Users WHERE email='$email'";
+        $result = $conn->query($sgl);
+        $count = $result->num_rows;
+        if ($count != 0) {
+            echo "Provided Email is already in use <br>";
+            session_destroy();
+            $_POST = "";
+            return false;
+        }
+        return $email;
+    }
+
+    static public function userNameCheck($conn, $userName) {
+        if ($userName == "") {
+            echo "Please type your User Name <br>";
+            return false;
+        }
+        $userName = trim($userName);
+        $userName = $conn->real_escape_string($userName);
+        if (strlen($userName) < 3 && strlen($userName) > 40) {
+            echo "User Name must have at least 3 characters or no more than 40 characters";
+            return false;
+        }
+        if (!preg_match("/^[a-zA-Z ]+$/", $userName)) {
+            echo"User Name must contain alphabets and space.";
+            return false;
+        }
+        return $userName;
+    }
+    
+    static public function passwordCheck($conn, $password) {
+        if ($password == "") {
+            echo "Please type your password<br>";
+            return false;
+        }
+        $password = trim($password);
+        $password = $conn->real_escape_string($password);
+        if (strlen($password) < 6) {
+            echo "Password must have at least 6 characters";
+            return false;
+        }
+        return $password;
     }
 
 }

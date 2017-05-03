@@ -5,8 +5,22 @@ require_once ('utils/check_login.php');
 require_once ('src/User.php');
 require_once ('src/Tweet.php');
 require_once ('src/Comment.php');
+?>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Twitter</title>
+        <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+           
+                
 
-
+<?php
 if ($_GET['id'] == $_SESSION['user_id']) {
     if (isset($_SESSION['user_id']) && ($_SESSION['pass'])) {// Wszystkie moje tweety i moja strona
         echo "<a href='index.php'>Return to main page</a><br><br>";
@@ -25,11 +39,15 @@ if ($_GET['id'] == $_SESSION['user_id']) {
     $id = $_GET['id'];
     $allTweetsByUserId = User::loadAllTweetsByUserId($conn, $id);
 }
+?>
+
+        </div>
+    </body>
+</html>
 
 
 
-
-
+<?php
 //sprawdzić czy użytkownik jest zalogowany
 //pobrać dane użytkownika i wszystkie jego wpisy
 //SELECT * FROM User u JOIN post p ON p.author_id = u.id WHERE u.id = $_GET['id'];

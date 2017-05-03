@@ -3,12 +3,22 @@ session_start();
 require_once ('utils/connection.php');
 require_once ('src/Tweet.php');
 require_once ('src/User.php');
-
+echo "<a href='index.php'>Return to main page</a><br>";
 if (($_SERVER['REQUEST_METHOD']) === "POST") {
     $email = $_POST['email'];
     $userName = $_POST['userName'];
     $password = $_POST['password'];
 
+    $email = User::emailCheck($conn, $email);
+    $userName = User::userNameCheck($conn, $userName);
+    $password = User::passwordCheck($conn, $password);
+    
+        
+if ($email == "" || $userName == "" || $password == "") {
+    return false;
+}
+   
+    
     $user1 = new User();
     $user1->setEmail($email);
     $user1->setUsername($userName);
@@ -22,9 +32,8 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
         $id = $row['id'];
         $hash = $row['hashed_password'];
     }
-    echo "<br>" . $id;
 
-   // $user1 = User::loadUserById($conn, $id);
+    // $user1 = User::loadUserById($conn, $id);
     var_dump($user1);
     $_SESSION['user_id'] = $id;
     $_SESSION['pass'] = $hash;
@@ -33,7 +42,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
     }
 
     $conn->close();
-    $conn = null;
+    $conn = null; 
 }
 
 
