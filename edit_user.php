@@ -54,25 +54,25 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
                         <legend>Edit Your Profile</legend>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" class="form-control" name="email" id="email" placeholder="E-mail...">
+                            <input type="text" class="form-control" name="email" id="email" placeholder="Type new E-mail...">
                         </div>
 
                         <div class="form-group">
                             <label for="">User name</label>
                             <input type="text" class="form-control" name="userName" id="userName"
-                                   placeholder="User name...">
+                                   placeholder="Type new User name...">
                         </div>
 
                         <div class="form-group">
                             <label for="">Password</label>
                             <input type="text" class="form-control" name="password" id="password"
-                                   placeholder="Password...">
+                                   placeholder="Type new Password...">
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
+                <div class="form-group">
+                    <a href='index.php'>Return to main page</a><br><br>    
                 </div>
             </div>
         </div>

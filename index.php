@@ -39,8 +39,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Home page</title>
-        <!-- Latest compiled and minified CSS -->
+        <title>Twitter</title>
         <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     </head>
     <body>
@@ -61,13 +60,13 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
 
                     <div>
                         <?php
-                            $user_id = $_SESSION['user_id'];
-                            echo "<a href='user.php?id=$user_id'><h2>All your Tweets</h2></a><br>";
+                        $user_id = $_SESSION['user_id'];
+                        echo "<a href='user.php?id=$user_id'><h3>All your Tweets</h3></a><br>";
                         ?>
 
                     </div>
                     <div>
-                        <a href='index.php?Logout'><h3> Logout</h3></a><br>
+                        <a href='index.php?Logout'><h4> Logout</h4></a><br>
                         <?php
                         if (isset($_GET['Logout'])) {
                             session_destroy();
@@ -76,7 +75,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
                         ?>
                     </div>
                     <div>
-                        <a href='edit_user.php?edit'><h3> Edit profile</h3></a><br>
+                        <a href='edit_user.php?edit'><h5> Edit profile</h5></a><br>
                     </div>
                 </div>
 
@@ -91,8 +90,8 @@ $sql = "SELECT * FROM Users
 $result = $conn->query($sql);
 
 foreach ($result as $row) {
-    echo "<a href='user.php?id=" . $row['userId']."'><h3>" . $row['username'] . "</h3></a>";
-    
+    echo "<a href='user.php?id=" . $row['userId'] . "'><h3>" . $row['username'] . "</h3></a>";
+
     if (mb_strlen($row['text']) > 20) {
         $row['text'] = substr($row['text'], 0, 19);
         $row['text'] .= "...";

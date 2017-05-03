@@ -123,40 +123,27 @@ class User {
         }
         return $ret;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    static public function loadAllTweetsByAutorId(mysqli $connection, $id) {
-        $sql = "SELECT * FROM Users "
-                . "JOIN Tweet ON Users.id=Tweet.userId "
-                //. "JOIN Comments On Comments.post_id=Tweet.id " 
-                . "WHERE Users.id = $id ";
-               // . "ORDER BY Comments.comments_date DESC";
-        
+
+    static public function loadAllTweetsByUserId(mysqli $connection, $id) {
+        $sql = "SELECT Tweet.*, COUNT(Comments.id) as NRCOMMENT FROM Tweet 
+                JOIN Comments ON Comments.post_id = Tweet.id
+                JOIN Users ON Users.id=Comments.autor_id
+                WHERE Tweet.userId=$id
+                GROUP BY Tweet.id";
+
         $result = $connection->query($sql);
         foreach ($result as $row) {
 
-           $loadedTweet = new Tweet();
-                $loadedTweet->id = $row['id'];
-                $loadedTweet->userId = $row['userId'];
-                $loadedTweet->text = $row['text'];
-                $loadedTweet->creationDate = $row['creationDate'];
-                $loadedTweet->username = $row['username'];
-                
+            $loadedTweet = new Tweet();
+            $loadedTweet->id = $row['id'];
+            $loadedTweet->userId = $row['userId'];
+            $loadedTweet->text = $row['text'];
+            $loadedTweet->creationDate = $row['creationDate'];
+
+            echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=" . $row['userId'] . "'><h3>" . $row['text'] . "</h3></a>" . "dodany dnia: " . $row['creationDate'] . "<br>";
+            echo "Komentarze: " . $row['NRCOMMENT'] . "<br><br>";
             
-            echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=".$row['userId']."'><h3>" . $row['text'] . "</h3></a>" ."".$row['username']."<br>dodał tweet: <br>*". $loadedTweet->text . "*<br> dnia: ".$row['creationDate']."<br><br>" ;
-           // echo "Komentarze: " . $row['comments_content'];
-        } 
-        
+        }
     }
-    
-    
-    
 
 }
