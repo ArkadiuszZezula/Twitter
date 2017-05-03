@@ -9,6 +9,10 @@ class User {
         $this->hashedPassword = "";
     }
 
+    public function getId() {
+        return $this->id;
+    }
+
     public function getEmail() {
         return $this->email;
     }
@@ -44,13 +48,13 @@ class User {
                     . "'$this->hashedPassword')";
 
             $result = $connection->query($sql);
-            
+
 
             // echo $connection->error;
             // var_dump($result);
             if ($result == true) {
                 $this->id = $connection->insert_id;
-                echo "Utworzono nowy profil użytkownika " . $this->username;       
+                echo "Utworzono nowy profil użytkownika " . $this->username;
                 return true;
             }
         } else {
@@ -119,5 +123,40 @@ class User {
         }
         return $ret;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    static public function loadAllTweetsByAutorId(mysqli $connection, $id) {
+        $sql = "SELECT * FROM Users "
+                . "JOIN Tweet ON Users.id=Tweet.userId "
+                //. "JOIN Comments On Comments.post_id=Tweet.id " 
+                . "WHERE Users.id = $id ";
+               // . "ORDER BY Comments.comments_date DESC";
+        
+        $result = $connection->query($sql);
+        foreach ($result as $row) {
+
+           $loadedTweet = new Tweet();
+                $loadedTweet->id = $row['id'];
+                $loadedTweet->userId = $row['userId'];
+                $loadedTweet->text = $row['text'];
+                $loadedTweet->creationDate = $row['creationDate'];
+                $loadedTweet->username = $row['username'];
+                
+            
+            echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=".$row['userId']."'><h3>" . $row['text'] . "</h3></a>" ."".$row['username']."<br>dodał tweet: <br>*". $loadedTweet->text . "*<br> dnia: ".$row['creationDate']."<br><br>" ;
+           // echo "Komentarze: " . $row['comments_content'];
+        } 
+        
+    }
+    
+    
+    
 
 }

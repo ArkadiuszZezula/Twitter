@@ -9,7 +9,10 @@ require_once ('src/Comment.php');
 
 if($_GET['id'] == $_SESSION['user_id']) {
     if (isset($_SESSION['user_id']) && ($_SESSION['pass'])) {// Wszystkie moje posty
-    echo "<a href='index.php'>Return to main page</a><br><br>";
+        echo "<a href='index.php'>Return to main page</a><br><br>";
+        $id = $_GET['id'];
+        $allTweetsByAutorId = User::loadAllTweetsByAutorId($conn, $id);
+    /*echo "<a href='index.php'>Return to main page</a><br><br>";
         $id = $_SESSION['user_id'];
         $sql = "SELECT * FROM Users JOIN Tweet ON
             Users.id=Tweet.userId
@@ -31,10 +34,29 @@ if($_GET['id'] == $_SESSION['user_id']) {
                     echo "Użytkownik: " . $row['username'] . " <br> *  " . $row['comments_content'] . "  * <br>" . "Dodano dnia: " . $row['comments_date'] . "<br><br>";
                 }
             
-        }
-    }
+        }*/
+    } 
         echo "<br><a href='index.php'>Return to main page</a><br>";
     return;
+    } else {
+        echo "<a href='index.php'>Return to main page</a><br><br>";
+        $id = $_GET['id'];
+        $allTweetsByAutorId = User::loadAllTweetsByAutorId($conn, $id);
+        
+        /*$loadTweet = Tweet::loadTweetById($conn, $tweetId);
+            $loadUser = User::loadUserById($conn, $id);
+            $loadComment = Comment::loadCommentById($conn, $id);
+            $loadPost = Comment::loadAllCommentsByPostId($conn, $tweetId);
+
+            echo "<a href='user.php?id=" . $loadUser->getId() . "'><h3>" . $loadUser->getUserName() . "</h3></a>" . " napisał: <br>";
+            echo "* " . $loadTweet->getText() . " * <br>";
+            echo "dnia: " . $loadTweet->getCreationDate() . "   <hr>";
+            echo "<a href='" . $_SERVER['REQUEST_URI'] . "&displayAllComments'> Pokaż komentarze: " . count($loadPost) . " </a>";
+            if (($_GET['tweetId'] == $tweetId) && (isset($_GET['displayAllComments']))) {
+                Comment::seeAll($conn, $tweetId);
+                echo "<br><a href='post.php?tweetId=" . $tweetId . "&userId=" . $id . "'> Zwiń komentarze </a><hr>";
+            } */
+        
     }
     
 

@@ -11,7 +11,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
 
         $user_id = $_SESSION['user_id'];
         $text = $_POST['tweet'];
-        $creationDate = date('Y-m-d h:m:s ');
+        $creationDate = date('Y-m-d H:i:s');
 
         $Tweet1 = new Tweet();
         $Tweet1->setUserId($user_id);
@@ -19,7 +19,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
         $Tweet1->setCreationDate($creationDate);
         $Tweet1->saveToDB($conn);
 
-        echo "Added tweet: <br>" . $Tweet1->getText($text) . "<br>" . $Tweet1->getCreationDate($creationDate) . "<br>";
+        echo "Dodałeś wpis: <br><h3>" . $Tweet1->getText($text) . "</h3><br>" . $Tweet1->getCreationDate($creationDate) . "<br>";
         echo "<a href='index.php'>Return to main page</a><br>";
         return;
         // var_dump($_SESSION);
@@ -85,14 +85,14 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
     </body>
 </html>
 <?php
-$sql = "SELECT * FROM Users 
+$sql = "SELECT * FROM Users  
         JOIN Tweet ON Users.id=Tweet.userId
         ORDER BY creationDate DESC";
 $result = $conn->query($sql);
 
 foreach ($result as $row) {
-    echo "<h3>" . $row['username'] . "</h3>";
-    // echo "Wpis z dnia: " . $row ['creationDate'] . "<br>Treść wpisu: <br> *" . $row['text'] . " *<br><br>";
+    echo "<a href='user.php?id=" . $row['userId']."'><h3>" . $row['username'] . "</h3></a>";
+    
     if (mb_strlen($row['text']) > 20) {
         $row['text'] = substr($row['text'], 0, 19);
         $row['text'] .= "...";

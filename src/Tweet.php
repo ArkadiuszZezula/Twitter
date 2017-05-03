@@ -2,10 +2,10 @@
 
 class Tweet {
 
-    private $id;
-    private $userId;
-    private $text;
-    private $creationDate;
+    public $id;
+    public $userId;
+    public $text;
+    public $creationDate;
 
     public function __construct() {
         $this->id = -1;
@@ -27,7 +27,12 @@ class Tweet {
     }
 
     public function setText($text) {
+        if (mb_strlen($text) > 140) {
+        $text = substr($text, 0, 139);
         $this->text = $text;
+    } else {
+        $this->text = $text;
+    }
     }
 
     public function getCreationDate() {
@@ -107,5 +112,38 @@ class Tweet {
         }
         return $ret;
     }
+    
+    
+    
+    
+    
+   static public function loadAllTweetsByAutorId(mysqli $connection, $id) {
+        $sql = "SELECT * FROM Tweet "
+                . "JOIN Tweet ON Users.id=Tweet.userId "
+                . "JOIN Comments On Comments.post_id=Tweet.id " 
+                . "WHERE Users.id = $id ";
+               // . "ORDER BY Comments.comments_date DESC";
+        $ret = [];
+        $result = $connection->query($sql);
+        foreach ($result as $row) {
 
+           $loadedTweet = new Tweet();
+                $loadedTweet->id = $row['id'];
+                $loadedTweet->userId = $row['userId'];
+                $loadedTweet->text = $row['text'];
+                $loadedTweet->creationDate = $row['creationDate'];
+     
+                 $ret[] = $loadedTweet;
+           // echo $row['username'] ."<br>dodał post: <br>*". $loadedTweet->text . "*<br> dnia: ".$row['creationDate']."<br><br>" ;
+           // echo "Komentarze: " . $row['comments_content'];
+        } 
+        return $ret;
+   }
+    
+    
+    
+    
+    
+    
+    
 }
