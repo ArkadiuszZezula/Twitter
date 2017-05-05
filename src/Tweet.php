@@ -107,8 +107,6 @@ class Tweet {
             $loadedTweet->creationDate = $row['creationDate'];
 
             $ret[] = $loadedTweet;
-            // echo $row['username'] ."<br>dodał post: <br>*". $loadedTweet->text . "*<br> dnia: ".$row['creationDate']."<br><br>" ;
-            // echo "Komentarze: " . $row['comments_content'];
         }
         return $ret;
     }
@@ -129,7 +127,7 @@ class Tweet {
                     $row['text'] = substr($row['text'], 0, 19);
                     $row['text'] .= "...";
                 }
-                echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=" . $row['userId'] . "'>Tweet z dnia: " . $row['text'] . "</a><br>";
+                echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=" . $row['userId'] . "'>" . $row['text'] . "</a><br>";
                 echo $row['creationDate'] . "<br><br>";
             }
         }

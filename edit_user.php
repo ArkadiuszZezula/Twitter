@@ -21,16 +21,10 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
 
     $user1->saveToDB($conn);
     
-    echo "Zaktualizowano dane <br>";
+    echo "Updated data <br>";
     echo "<a href='index.php'>Return to main page</a><br>";
     return;
 }
-
-
-
-//sprawdzamy czy zalogowany
-//obsługa formularza - z komunikatem, czy udało się zapisać zmiany
-//pobieramy dane zalogowanego użytkownika
 ?>
 
 <!--formularz do edycji danych użytkownika-->

@@ -19,22 +19,13 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
         echo "Witaj " . $row['username'] . "<br>";
         echo "<a href='index.php'>Look at your Tweets</a><br>";
         header("location: index.php");
-       
     } else {
         echo "Niepoprawny login lub hasło. ";
         session_destroy();
         return false;
     }
 }
-//obsługa formularza logowania
-//czy w bazie jest użytkownik o podanym emailu i haśle?
-//jeśli tak - zaloguj
-//jeśli nie - wyświetl komunikat
 ?>
-
-<!--Formuarz do logowania-->
-
-<!--link do rejestracji konta-->
 
 <!doctype html>
 <html lang="en">
@@ -43,8 +34,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Zadanie 1 - dodawanie produktów do bazy</title>
-        <!-- Latest compiled and minified CSS -->
+        <title>Login</title>
         <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     </head>
     <body>
@@ -78,7 +68,7 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
                     if (isset($_GET['Logout'])) {
                         session_destroy();
                         header("location: login.php");
-                        echo "Wylogowano poprawnie";
+                        echo "Log off correctly";
                         return;
                     }
                     ?>
@@ -87,7 +77,3 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
         </div>
     </body>
 </html>
-
-
-<?php
-?>

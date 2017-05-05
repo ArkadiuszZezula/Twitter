@@ -7,6 +7,7 @@ require_once ('src/Tweet.php');
 require_once ('src/Message.php');
 require_once ('src/Comment.php');
 ?>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -25,7 +26,7 @@ require_once ('src/Comment.php');
                     echo "<a href='messages.php'>Messages</a><br>";
                     echo "<a href='index.php'>Return to main page</a><br><br>";
                     $userById = User::loadUserById($conn, $_SESSION['user_id']);
-                    echo "Witaj na swoim profilu" . " <h1>" . $userById->getUsername() . "</h1>" . "Oto Twoje tweety: <br>";
+                    echo "Hello <h2>" . $userById->getUsername() . "</h2>" . "Here are your tweets: <br>";
 
                     $id = $_GET['id'];
                     $allTweetsByUserId = User::loadAllTweetsByUserId($conn, $id);
@@ -35,43 +36,28 @@ require_once ('src/Comment.php');
             } else { // Strona i tweety innych użytkowników
                 echo "<a href='index.php'>Return to main page</a>";
                 $byUserId = User::loadUserById($conn, $_GET['id']);
-                echo " <h2>" . $byUserId->getUsername() . "</h2>" . "Tweety użytkownika " . $byUserId->getUsername() . ": <br><hr>";
+                echo " <h2>" . $byUserId->getUsername() . "</h2>" . "User tweets: <br><hr>";
                 $id = $_GET['id'];
                 $allTweetsByUserId = User::loadAllTweetsByUserId($conn, $id);
                 ?>
 
             </div>
         </body>
-    </html>
+        <div class="container">
+            <form action="<?php $_SERVER['REQUEST_URI']; ?>" method="POST" role="form">
+                <legend>Send Message</legend>
+                <div class="form-group">
 
-
-
-    <?php
-//sprawdzić czy użytkownik jest zalogowany
-//pobrać dane użytkownika i wszystkie jego wpisy
-//SELECT * FROM User u JOIN post p ON p.author_id = u.id WHERE u.id = $_GET['id'];
-//SELECT p.*, COUNT(c.id) FROM post p 
-//JOIN comment c ON c.post_id = p.id
-//WHERE p.author_id = $_GET['id']
-//GROUP BY p.id; - lista wpisów wraz z liczbą komentarzy
-    ?>
-
-    <div class="container">
-        <form action="<?php $_SERVER['REQUEST_URI']; ?>" method="POST" role="form">
-            <legend>Send Message</legend>
-            <div class="form-group">
-                
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
-                
-                <label for="">New Message</label>
-                <textarea rows="4" cols="50" type="textarea" class="form-control" name="message" id="message" >
-                </textarea>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <label for="">New Message</label>
+                        <textarea rows="4" cols="50" type="textarea" class="form-control" name="message" id="message" >
+                        </textarea>
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Send</button>
-        </form>
-    </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </html>
 
     <?php
     if (($_SERVER['REQUEST_METHOD']) === "POST") {
@@ -87,16 +73,12 @@ require_once ('src/Comment.php');
             $message1->setMessagesContent($messagesContent);
             $message1->saveToDB($conn);
 
-            echo "Wysłałeś wiadomość do użytkownika ".$byUserId->getUsername()." <br>";
+            echo "You sent message to user " . $byUserId->getUsername() . " <br>";
             echo "<a href='index.php'>Return to main page</a><br>";
             return;
         }
     }
 }
 ?>
-
-<!--Formularz do wysyłania wiadomości do użytkownika-->
-
-<!--Lista wpisów użytkownika-->
 
 

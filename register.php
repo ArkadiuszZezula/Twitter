@@ -12,13 +12,13 @@ if (($_SERVER['REQUEST_METHOD']) === "POST") {
     $email = User::emailCheck($conn, $email);
     $userName = User::userNameCheck($conn, $userName);
     $password = User::passwordCheck($conn, $password);
-    
-        
-if ($email == "" || $userName == "" || $password == "") {
-    return false;
-}
-   
-    
+
+
+    if ($email == "" || $userName == "" || $password == "") {
+        return false;
+    }
+
+
     $user1 = new User();
     $user1->setEmail($email);
     $user1->setUsername($userName);
@@ -42,15 +42,8 @@ if ($email == "" || $userName == "" || $password == "") {
     }
 
     $conn->close();
-    $conn = null; 
+    $conn = null;
 }
-
-
-//Onsługa formularza do rejestracji
-//jeśli udało się zapisać - zaloguj i przekieruj na stronę index.php
-//$user->login();
-//header("Location: index.php");
-//jeśli nie udało się zapisać - wyświetl info, że podany adres email jest już zajęty
 ?>
 <!--Formularz do rejestracji użytkownika-->
 <html lang="en">
@@ -59,8 +52,7 @@ if ($email == "" || $userName == "" || $password == "") {
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Zadanie 1 - dodawanie produktów do bazy</title>
-        <!-- Latest compiled and minified CSS -->
+        <title>Register</title>
         <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     </head>
     <body>

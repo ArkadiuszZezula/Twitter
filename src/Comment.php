@@ -1,6 +1,6 @@
 <?php
 
-class Comment  {
+class Comment {
 
     public $id;
     public $comments_content;
@@ -95,7 +95,7 @@ class Comment  {
 
     static public function loadCommentById(mysqli $connection, $id) {
         $sql = "SELECT * FROM Comments WHERE id=$id "
-        . "ORDER BY Comments.comments_date DESC";
+                . "ORDER BY Comments.comments_date DESC";
         $result = $connection->query($sql);
         if ($result == true && $result->num_rows == 1) {
             $row = $result->fetch_assoc();
@@ -150,7 +150,7 @@ class Comment  {
             $loadedComment->autor_id = $row['autor_id'];
             $loadedComment->comments_date = $row['comments_date'];
 
-            echo "<br><br>" . "<a href='user.php?id=" . $loadedComment->autor_id . "'><h4>" . $loadedComment->username . "</h4></a>" . "skomentował :<br>" . $loadedComment->comments_content . "<br> dnia: " . $loadedComment->comments_date . "<br>";
+            echo "<br><br>" . "<a href='user.php?id=" . $loadedComment->autor_id . "'><h4>" . $loadedComment->username . "</h4></a>" . "commented :<br> * " . $loadedComment->comments_content . " * <br> day: " . $loadedComment->comments_date . "<br>";
         }
     }
 

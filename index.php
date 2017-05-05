@@ -4,8 +4,8 @@ require_once ('utils/connection.php');
 require_once ('utils/check_login.php');
 require_once ('src/Tweet.php');
 require_once ('src/User.php');
-//Sprawdź czy użytkownik jest zalogowany
-var_dump($_SESSION);
+
+//var_dump($_SESSION);
 ?>
 
 
@@ -36,15 +36,12 @@ var_dump($_SESSION);
                     $Tweet1->setCreationDate($creationDate);
                     $Tweet1->saveToDB($conn);
 
-                    echo "Dodałeś wpis: <br><h3>" . $Tweet1->getText($text) . "</h3><br>" . $Tweet1->getCreationDate($creationDate) . "<br>";
+                    echo "You added tweet: <br><h3>" . $Tweet1->getText($text) . "</h3><br>" . $Tweet1->getCreationDate($creationDate) . "<br>";
                     echo "<a href='index.php'>Return to main page</a><br>";
                     return;
-                    // var_dump($_SESSION);
-//header ("location: index.php?allTweets");
                 }
             }
-//obsługa formularza dodawania wpisu
-//pobieranie listy wpisu
+
             ?>
 
         </div>
@@ -97,16 +94,3 @@ var_dump($_SESSION);
 
     </body>
 </html>
-
-
-
-
-
-
-
-<!--  Formualrz dodawania wpisu  -->
-
-<!--  Link do wiadomości zalogowanego użytkownika  -->
-<!--  Link do edycji danych zalogowanego użytkownika  -->
-
-<!--  Lista wpisów (jako linki do post.php?id=xxx   -->

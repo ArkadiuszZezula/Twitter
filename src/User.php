@@ -37,7 +37,7 @@ class User {
         if ($this->id == -1) {
 
             if ($this->email == "" || $this->username == "" || $this->hashedPassword == "") {
-                echo "Nie wprowadzono wszystkich wymaganych danych";
+                echo "No data entered";
                 return false;
             }
 
@@ -54,7 +54,7 @@ class User {
             // var_dump($result);
             if ($result == true) {
                 $this->id = $connection->insert_id;
-                echo "Utworzono nowy profil użytkownika " . $this->username;
+                echo "A new user profile has been created: " . $this->username;
                 return true;
             }
         } else {
@@ -70,7 +70,7 @@ class User {
                 return true;
             }
         }
-        echo "Użytkownik o podanym e-mailu już istnieje";
+        echo "The email already exists";
         return false;
     }
 
@@ -140,8 +140,8 @@ class User {
             $loadedTweet->text = $row['text'];
             $loadedTweet->creationDate = $row['creationDate'];
 
-            echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=" . $row['userId'] . "'><h3>" . $row['text'] . "</h3></a>" . "dodany dnia: " . $row['creationDate'] . "<br>";
-            echo "Komentarze: " . $row['NRCOMMENT'] . "<br><br>";
+            echo "<a href='post.php?tweetId=" . $row['id'] . "&userId=" . $row['userId'] . "'><h3>" . $row['text'] . "</h3></a>" . "added day: " . $row['creationDate'] . "<br>";
+            echo "Comments: " . $row['NRCOMMENT'] . "<br><br>";
         }
     }
 
